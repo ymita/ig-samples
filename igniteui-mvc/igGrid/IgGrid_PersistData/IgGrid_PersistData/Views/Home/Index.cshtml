@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- Ignite UI Required Combined CSS Files -->
+<link href="http://cdn-na.infragistics.com/igniteui/2018.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+<link href="http://cdn-na.infragistics.com/igniteui/2018.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+<style>
+    .text-color {
+        color: red;
+    }
+</style>
+
+
+
+<table id="grid"></table>
+
+<button id="updateButton">update</button>
+<div id="message" class="text-color"></div>
+
+
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdn-na.infragistics.com/igniteui/2018.2/latest/js/infragistics.core.js"></script>
+<script src="http://cdn-na.infragistics.com/igniteui/2018.2/latest/js/infragistics.lob.js"></script>
+<script>
+    $(function () {
+        $("#grid").igGrid({
+            primaryKey: "Id",
+            autoGenerateColumns: false,
+            width: "350px",
+            columns: [
+                { key: "Id", headerText: "Id", dataType: "number", width: "50px" },
+                { key: "LastName", headerText: "姓", dataType: "string", width: "150px" },
+                { key: "FirstName", headerText: "名", dataType: "string", width: "150px" }
+            ],
+            dataSource: '@Url.Action("getData")',  //データを取得する際に呼び出す API
+            updateUrl: '@Url.Action("updateData")',//編集内容を保存する際に呼び出す API
+            features: [{
+                name: "Updating",
+                editMode: "cell",
+                columnSettings: [
+                    {
+                        columnKey: "Id",
+                        readOnly: true
+                    }
+                ],
+                enableAddRow: false,
+                enableDeleteRow: false
+            }]
+        });
+    });
+
+    $("#updateButton").click(() => {
+        //igGrid の saveChanges を呼び出し、updateUrl で指定した API を呼び出す。
+        $("#grid").igGrid("saveChanges", () => {
+
+            setTimeout(() => {
+                $("#message").text("セルを更新しました。");
+            }, 200);
+
+            setTimeout(() => {
+                $("#message").text("");
+            }, 3000);
+
+        });
+    });
+</script>
