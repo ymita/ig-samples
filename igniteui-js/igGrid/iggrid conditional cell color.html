@@ -3,16 +3,16 @@
 
 <head>
     <title></title>
-    <!-- Ignite UI Required Combined CSS Files -->
-    <link href="http://cdn-na.infragistics.com/igniteui/2018.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
-    <link href="http://cdn-na.infragistics.com/igniteui/2018.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+<!-- Ignite UI Required Combined CSS Files -->
+<link href="http://cdn-na.infragistics.com/igniteui/2018.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+<link href="http://cdn-na.infragistics.com/igniteui/2018.2/latest/css/structure/infragistics.css" rel="stylesheet" />
 
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 
-    <!-- Ignite UI Required Combined JavaScript Files -->
-    <script src="http://cdn-na.infragistics.com/igniteui/2018.2/latest/js/infragistics.core.js"></script>
-    <script src="http://cdn-na.infragistics.com/igniteui/2018.2/latest/js/infragistics.lob.js"></script>
+<!-- Ignite UI Required Combined JavaScript Files -->
+<script src="http://cdn-na.infragistics.com/igniteui/2018.2/latest/js/infragistics.core.js"></script>
+<script src="http://cdn-na.infragistics.com/igniteui/2018.2/latest/js/infragistics.lob.js"></script>
     <style>
     .highlight{
         background: pink;
@@ -25,9 +25,9 @@
     <script>
         $(function () {
             var data = [
-                { "ID": 1, "Name": "John Smith", "Age": 45 },
-                { "ID": 2, "Name": "Mary Johnson", "Age": 32 },
-                { "ID": 3, "Name": "Bob Ferguson", "Age": 27 }
+                { "ID": 1, "Name": "John Smith", "Score": 330 },
+                { "ID": 2, "Name": "Mary Johnson", "Score": 320 },
+                { "ID": 3, "Name": "Bob Ferguson", "Score": 270 }
             ];
             $("#grid").igGrid({
                 autoGenerateColumns: false,
@@ -37,24 +37,24 @@
                 columns: [
                     { headerText: "ID", key: "ID", dataType: "number" },
                     { headerText: "名前", key: "Name", dataType: "string" },
-                    { headerText: "年齢", key: "Age", dataType: "number" }
+                    { headerText: "スコア", key: "Score", dataType: "number" }
                 ],
                 features: [{
                     name: "Updating",
                     editMode: "cell",
                     editCellEnded: function(evt, ui){
-                        if(ui.columnKey !== 'Age'){
+                        if(ui.columnKey !== "Score"){
                             return;
                         }
 
-                        var ageCell = $("#grid").igGrid("cellById", ui.rowID, 'Age');
+                        var scoreCell = $("#grid").igGrid("cellById", ui.rowID, "Score");
                         
-                        // Ageが30未満の場合は、Ageセルに highlight クラスを付ける。
-                        if(ui.value < 30) {
-                            ageCell.addClass("highlight");
+                        // Score が 300 未満の場合は、Score セルに highlight クラスを付ける。
+                        if(ui.value < 300) {
+                            scoreCell.addClass("highlight");
                         }
                         else{
-                            ageCell.removeClass("highlight");
+                            scoreCell.removeClass("highlight");
                         }
                     }
                 }],
@@ -68,10 +68,10 @@
                         // 行 ID からレコードを取得
                         var record = grid.findRecordByKey(elementInfo.rowId);
 
-                        // Ageが30未満の場合は、Ageセルに highlight クラスを付ける。
-                        if (record.Age < 30) {
-                            var ageCell = grid.cellById(record.ID, 'Age');
-                            ageCell.addClass("highlight");
+                        // Score が 300 未満の場合は、Score セルに highlight クラスを付ける。
+                        if (record.Score < 300) {
+                            var scoreCell = grid.cellById(record.ID, "Score");
+                            scoreCell.addClass("highlight");
                         }
                     });
                 }
